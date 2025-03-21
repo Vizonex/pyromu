@@ -1,6 +1,9 @@
 # pyromu
 A faster Version Of Python's Stdlib Random module using algorythms provided by the website: http://www.romu-random.org/ as well as this paper: http://arxiv.org/abs/2002.11331.pdf written by Mark A. Overton.
 
+## Updates
+- I am rewriting this library's C End to use arrays for greater speeds and bytearrays for easier memory managment otherwise it will be a cython internal class.
+
 ## Why Write Such A Library?
 The Python Random stdlib-module is fast in all but it suffers from it's overall memory consumption not to mention that it's running the 
 Mersenne Twister under the hood and with that 624 integers that need to be pulled when you want to get or set the random module's states
