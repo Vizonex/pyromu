@@ -1,0 +1,8 @@
+
+# Cython artifacts
+pyromu/_pyromu_c.c
+pyromu/_pyromu_c.html
+
+# Uv virtual enviornment.
+.venv/*
+*.egg-info
