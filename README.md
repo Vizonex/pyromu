@@ -13,8 +13,16 @@ bottlenecks. By replacing these and other low-level functions it maybe possible 
 Being able to optionally pick between different Romu Algorythms can beneift you in deciding which would be best for your projects.
 It is my goal to make this library simillar to libraries such as uvloop with the goal of replacing stdlib modules with faster ones.
 
+- It's also threadsafe and I encourage users to put at least 1 or more of these random number generators onto each thread
+  to make your applications threadsafe.
+- `randbytes()` has a few improvements compared to the stdlib version since an integer is not being converted to.
+- Less memory consumption than MT-19937 However know that it could suffer with decent cryptography due to being
+  less numbers per state. However it could be better at helping you make videogames (ex. pygame) and shuffling timeouts as well as
+  user-agents (if you like webscraping) and randomizing timeout intervals and proxies.
+  
+
+
 ## TODOS
-- Find a way to override _random.Random() and the random.Random() class objects with our own.
-- Try to write as many functions as we can in Cython whenever possible so that we don't loose any speed long-term
-- Fix Licensing Issues.
+- upload to pypi
+- pytests (This can't seem to be lazily derrived from the randommodule and needs another way to do it)
 
