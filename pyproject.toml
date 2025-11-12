@@ -1,9 +1,23 @@
-[build-system]
-
-requires = [
-     "setuptools",
-     "wheel",
-     "Cython"
+[project]
+name = "pyromu"
+version = "0.1.0"
+description = "A Small Random Number Generator Built off the standard random module"
+readme = "README.md"
+authors = [
+    { name = "Vizonex", email = "VizonexBusiness@gmail.com" }
 ]
+requires-python = ">=3.10"
+dependencies = []
 
-build-backend = 'setuptools.build_meta'
+[build-system]
+requires = ["setuptools", "cython", "wheel"]
+
+[tool.setuptools]
+# Things I learned from cyares were brought over here...
+zip-safe = false
+# Important tip: use packages arguments they help with not needing a src directory...
+packages = ['pyromu']
+
+ext-modules = [
+{name = "pyromu._pyromu_c", sources = ["pyromu/_pyromu_c.pyx"]}
+]
