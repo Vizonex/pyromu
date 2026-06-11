@@ -8,8 +8,7 @@ A faster Version Of Python's Stdlib Random module using algorythms provided by t
 The Python Random stdlib-module is fast in all but it suffers from it's overall memory consumption not to mention that it's running the 
 Mersenne Twister under the hood and with that 624 integers that need to be pulled when you want to get or set the random module's states
 which is a large amount of numbers considering each integer is 32 bits.
-Functions like `getrandbits()` and it's brother `randbytes()` have a flaw where they need to convert gigantic integers which can lead to numerous 
-bottlenecks. By replacing these and other low-level functions it maybe possible to have an overall faster and more friendly random module. 
+Functions like `getrandbits()` and it's brother `randbytes()` have a flaw where they need to convert gigantic integers which can lead to numerous  bottlenecks. By replacing these and other low-level functions it maybe possible to have an overall faster and more friendly random module. 
 Being able to optionally pick between different Romu Algorythms can beneift you in deciding which would be best for your projects.
 It is my goal to make this library simillar to libraries such as uvloop with the goal of replacing stdlib modules with faster ones.
 

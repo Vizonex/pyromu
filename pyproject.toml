@@ -1,6 +1,6 @@
 [project]
 name = "pyromu"
-version = "0.1.0"
+dynamic = ["version"]
 description = "A Small Random Number Generator Built off the standard random module"
 readme = "README.md"
 authors = [
@@ -21,3 +21,12 @@ packages = ['pyromu']
 ext-modules = [
 {name = "pyromu._pyromu_c", sources = ["pyromu/_pyromu_c.pyx"]}
 ]
+
+[tool.setuptools.dynamic]
+# NOTE: Change library name <cython_template_uv> when you have thought of what the name
+# of your package should be.
+version = {attr = "pyromu.__version__"}
+
+[project.optional-dependencies]
+tests = ["pytest"]
+

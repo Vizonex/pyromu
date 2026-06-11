@@ -8,3 +8,6 @@ pyromu/_pyromu_c.html
 # Uv virtual enviornment.
 .venv/*
 *.egg-info
+# Pycache
+__pycache__
+
