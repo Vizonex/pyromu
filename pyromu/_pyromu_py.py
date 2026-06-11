@@ -350,7 +350,10 @@ class RomuQuad32(Romu32):
             self._state[i] = sm
 
     def getrand(self):
-        wp, xp, yp, zp = self._state.tolist()
+        wp = self._state[0]
+        xp = self._state[1]
+        yp = self._state[2]
+        zp = self._state[3]
         self._state[0] = uint32_t(3323815723 * zp).value  # a-mult
         self._state[1] = uint32_t(
             zp + uint32_t((wp << 26) | (wp >> 6)).value
