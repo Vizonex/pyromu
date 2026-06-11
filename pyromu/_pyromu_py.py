@@ -125,7 +125,7 @@ class RomuQuad(Romu64):
 
     def getrand(self) -> int:
         # Mirror of romuQuad_random() from an array
-        wp, xp, yp, zp = self._state
+        wp, xp, yp, zp = self._state.tolist()
         # uint64_t type is used for overflowing & undeflowing the same way C would do it...
         self._state[0] = uint64_t((15241094284759029579) * zp).value
         # To make things easier for beginners to take in
@@ -169,7 +169,7 @@ class RomuTrio(Romu64):
 
     def getrand(self) -> int:
         # Mirror of romuQuad_random() from an array
-        xp, yp, zp = self._state
+        xp, yp, zp = self._state.tolist()
         self._state[0] = uint64_t(15241094284759029579 * zp).value
         self._state[1] = uint64_t(yp - xp).value
         self._state[1] = uint64_t((self._state[1] << 12) | (self._state[1] >> 52)).value
@@ -350,7 +350,7 @@ class RomuQuad32(Romu32):
             self._state.append(sm)
 
     def getrand(self):
-        wp, xp, yp, zp = self._state
+        wp, xp, yp, zp = self._state.tolist()
         self._state[0] = uint32_t(3323815723 * zp).value  # a-mult
         self._state[1] = uint32_t(
             zp + uint32_t((wp << 26) | (wp >> 6)).value
@@ -397,7 +397,7 @@ class RomuTrio32(Romu32):
         xp = self._state[0]
         yp = self._state[1]
         zp = self._state[2]
-        self._state[0] = uint32_t(3323815723 * zp).value;
+        self._state[0] = uint32_t(3323815723 * zp).value
         self._state[1] = uint32_t(yp - xp).value 
         self._state[1] = uint32_t((self._state[1] << 6) | (self._state[1] >> 26)).value
         self._state[2] = uint32_t(zp - yp).value 
