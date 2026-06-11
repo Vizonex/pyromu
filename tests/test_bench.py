@@ -1,16 +1,16 @@
 from pyromu._helpers_py import (
     PyRomuDuo, 
     PyRomuDuoJr,
-    PyRomuMono32,
+    # PyRomuMono32,
     PyRomuQuad,
-    PyRomuQuad32,
+    # PyRomuQuad32,
     PyRomuTrio,
     PyRomuTrio32
 )
 from pyromu._helpers_c import (
     CRomuDuo, 
     CRomuDuoJr,
-    CRomuMono32,
+    # CRomuMono32,
     CRomuQuad,
     CRomuQuad32,
     CRomuTrio,
@@ -30,7 +30,7 @@ N = 10
         PyRomuDuo, 
         PyRomuDuoJr,
         PyRomuQuad,
-        PyRomuQuad32,
+        # PyRomuQuad32, Broken
         PyRomuTrio,
         PyRomuTrio32,
         CRomuDuo, 
