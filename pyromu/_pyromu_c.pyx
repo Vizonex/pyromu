@@ -1,7 +1,6 @@
-# cython: language_level = 3, free_threaded=True, cdivision=True
+# cython: language_level = 3, freethreading_compatible = True, cdivision=True
 
 from array import array
-from cpython.bytes cimport PyBytes_FromStringAndSize
 from cpython.time cimport monotonic_ns
 
 from cpython.array cimport array
