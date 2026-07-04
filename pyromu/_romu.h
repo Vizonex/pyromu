@@ -46,12 +46,12 @@ extern "C" {
 static PyObject* PyRomuLong_AsByteArray(unsigned char* data, Py_ssize_t size){
     PyObject* n = NULL;
     #if PY_VERSION_HEX < 0x030D0000
-        if (_PyLong_AsByteArray((PyLongObject *)n, data, size, PY_LITTLE_ENDIAN, 0) < 0){
+        if (_PyLong_AsByteArray((PyLongObject *)n, data, (size_t)size, PY_LITTLE_ENDIAN, 0) < 0){
             return NULL;
         }
     #else
         /* it was made slightly more public in 3.13+ and it needs to match _randommodule.c's version */
-        if (_PyLong_AsByteArray((PyLongObject *)n, size, PY_LITTLE_ENDIAN, 1, 1) < 0){
+        if (_PyLong_AsByteArray((PyLongObject *)n, data, (size_t)size, PY_LITTLE_ENDIAN, 1, 1) < 0){
             return NULL;
         }
     #endif

@@ -113,11 +113,11 @@ class RomuQuad(Romu64):
             except Exception:
                 # Backdown to seeding by time
                 # and then hash the number to shuffle it in better...
-                self._state = array("Q")
+                self._state = array("Q", [0, 0, 0, 0])
                 sm = uint64_t(hash(monotonic_ns())).value
 
         else:
-            self._state = array("Q")
+            self._state = array("Q", [0, 0, 0, 0])
             sm = uint64_t(hash(n)).value
 
         for i in range(4):
@@ -125,7 +125,7 @@ class RomuQuad(Romu64):
 
     def getrand(self) -> int:
         # Mirror of romuQuad_random() from an array
-        wp, xp, yp, zp = self._state
+        wp, xp, yp, zp = self._state.tolist()
         # uint64_t type is used for overflowing & undeflowing the same way C would do it...
         self._state[0] = uint64_t((15241094284759029579) * zp).value
         # To make things easier for beginners to take in
@@ -156,20 +156,20 @@ class RomuTrio(Romu64):
                 return
 
             except Exception:
-                self._state = array("Q")
+                self._state = array("Q", [0, 0, 0])
                 sm = uint64_t(hash(monotonic_ns())).value
 
         else:
-            self._state = array("Q")
+            self._state = array("Q", [0, 0, 0])
             sm = uint64_t(hash(n)).value
 
-        for _ in range(3):
+        for i in range(3):
             sm = splitmix64(sm)
-            self._state.append(sm)
+            self._state[i] = sm
 
     def getrand(self) -> int:
         # Mirror of romuQuad_random() from an array
-        xp, yp, zp = self._state
+        xp, yp, zp = self._state.tolist()
         self._state[0] = uint64_t(15241094284759029579 * zp).value
         self._state[1] = uint64_t(yp - xp).value
         self._state[1] = uint64_t((self._state[1] << 12) | (self._state[1] >> 52)).value
@@ -197,16 +197,16 @@ class RomuDuo(Romu64):
                 return
 
             except Exception:
-                self._state = array("Q")
+                self._state = array("Q", [0, 0])
                 sm = uint64_t(hash(monotonic_ns())).value
 
         else:
-            self._state = array("Q")
+            self._state = array("Q", [0, 0])
             sm = uint64_t(hash(n)).value
 
-        for _ in range(2):
+        for i in range(2):
             sm = splitmix64(sm)
-            self._state.append(sm)
+            self._state[i] = sm
 
     def getrand(self) -> int:
         xp = self._state[0]
@@ -238,16 +238,16 @@ class RomuDuoJr(Romu64):
                 return
 
             except Exception:
-                self._state = array("Q")
+                self._state = array("Q", [0, 0])
                 sm = uint64_t(hash(monotonic_ns())).value
 
         else:
-            self._state = array("Q")
+            self._state = array("Q", [0, 0])
             sm = uint64_t(hash(n)).value
 
-        for _ in range(2):
+        for i in range(2):
             sm = splitmix64(sm)
-            self._state.append(sm)
+            self._state[i] = sm
 
     def getrand(self) -> int:
         xp = self._state[0]
@@ -338,19 +338,22 @@ class RomuQuad32(Romu32):
                 return
 
             except Exception:
-                self._state = array("L")
+                self._state = array("L", [0, 0, 0, 0])
                 sm = uint32_t(hash(monotonic_ns())).value
 
         else:
-            self._state = array("L")
+            self._state = array("L", [0, 0, 0, 0])
             sm = uint32_t(hash(n)).value
 
-        for _ in range(4):
+        for i in range(4):
             sm = splitmix32(sm)
-            self._state.append(sm)
+            self._state[i] = sm
 
     def getrand(self):
-        wp, xp, yp, zp = self._state
+        wp = self._state[0]
+        xp = self._state[1]
+        yp = self._state[2]
+        zp = self._state[3]
         self._state[0] = uint32_t(3323815723 * zp).value  # a-mult
         self._state[1] = uint32_t(
             zp + uint32_t((wp << 26) | (wp >> 6)).value
@@ -377,27 +380,27 @@ class RomuTrio32(Romu32):
     def seed(self, n: Hashable | None = None):
         if n is None:
             try:
-                self._state = array("L", urandom(sizeof(uint32_t) * 4))
+                self._state = array("L", urandom(sizeof(uint32_t) * 3))
                 # skip attempting to seed as array is already seeded...
                 return
 
             except Exception:
-                self._state = array("L")
+                self._state = array("L", [0, 0, 0])
                 sm = uint32_t(hash(monotonic_ns())).value
 
         else:
-            self._state = array("L")
+            self._state = array("L", [0, 0, 0])
             sm = uint32_t(hash(n)).value
 
-        for _ in range(4):
+        for i in range(3):
             sm = splitmix32(sm)
-            self._state.append(sm)
+            self._state[i] = sm
 
     def getrand(self):
         xp = self._state[0]
         yp = self._state[1]
         zp = self._state[2]
-        self._state[0] = uint32_t(3323815723 * zp).value;
+        self._state[0] = uint32_t(3323815723 * zp).value
         self._state[1] = uint32_t(yp - xp).value 
         self._state[1] = uint32_t((self._state[1] << 6) | (self._state[1] >> 26)).value
         self._state[2] = uint32_t(zp - yp).value 
